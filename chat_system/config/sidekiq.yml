@@ -1,0 +1,8 @@
+:verbose: false
+:concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+:timeout: 30
+:schedule:
+  UpdateChatCounterWorker:
+    every: '30m'
+  UpdateMessageCounterWorker:
+    every: '30m'

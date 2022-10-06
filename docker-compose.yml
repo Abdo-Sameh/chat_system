@@ -1,0 +1,42 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  chat-system:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./chat_system
+    command: bundle exec sidekiq && rails db:create && rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - "3200:3200"
+    restart: always
+    depends_on:
+      - elasticsearch
+      - mysql
