@@ -2,7 +2,7 @@
 
 bash -c "bundle exec sidekiq" &
 
-bash -c "rails db:create && rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'" -D
+bash -c "rails db:create && rails db:migrate && bundle exec rails s -p 3200 -b '0.0.0.0'" -D
 
 status=$?
 if [ $status -ne 0 ]; then

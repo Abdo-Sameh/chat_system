@@ -1,1 +1,1 @@
-# $redis = Redis.new(:host => 'localhost', :port => 6379)
+$redis = Redis.new(:host => ENV.fetch('REDIS_URL_CACHING'), :port => 6379)

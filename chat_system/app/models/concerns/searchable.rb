@@ -16,39 +16,6 @@ module Searchable
     end
 
     def self.search(query, filters)
-      # set_filters = lambda do |context_type, filter|
-      #   @search_definition[:query][:bool][context_type] |= [filter]
-      # end
-      #
-      # @search_definition = {
-      #   size: 5,
-      #   query: {
-      #     bool: {
-      #       must: [],
-      #       should: [],
-      #       filter: []
-      #     }
-      #   }
-      # }
-      #
-      # if query.blank?
-      #   set_filters.call(:must, match_all: {})
-      # else
-      #   set_filters.call(
-      #     :must,
-      #     match: {
-      #       name: {
-      #         query: query,
-      #         fuzziness: 1
-      #       }
-      #     }
-      #   )
-      # end
-      #
-      # if filters[:level].present?
-      #   set_filters.call(:filter, term: { level: filters[:level] })
-      # end
-
       __elasticsearch__.search({
                                  query: {
                                    bool: {

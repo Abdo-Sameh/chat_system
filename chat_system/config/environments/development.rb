@@ -26,12 +26,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-  config.cache_store = :redis_store, {
-    host: "localhost",
-    port: 6379,
-    db: 0,
-    namespace: "cache"
-  }, {
+  config.cache_store = :redis_store, { url: ENV.fetch("REDIS_URL_CACHING", "redis://redis:6379/0") }, {
     expires_in: 1.hour
   }
 
